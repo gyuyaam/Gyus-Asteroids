@@ -23,12 +23,7 @@ public class AsteroidsApplication extends Application {
     public static void main(String[] args) {
         launch(AsteroidsApplication.class);
     }
-
-    public static int partsCompleted() {
-        // State how many parts you have completed using the return value of this method
-        return 4;
-    }
-
+    
     @Override
     public void start(Stage stage) throws Exception {
         Pane pane = new Pane();
@@ -112,7 +107,7 @@ public class AsteroidsApplication extends Application {
                     asteroid.move();
                     
                     if(ship.collide(asteroid)) {
-                        text.setText("Game Over!");
+                        text.setText("Game Over! Points: " + points.get());
                         stop();
                     }
                 });
@@ -124,7 +119,7 @@ public class AsteroidsApplication extends Application {
                 .filter(asteroid -> !asteroid.isAlive())
                 .collect(Collectors.toList()));
                 
-                if(Math.random() < 0.005) {
+                if(asteroids.size() < 5) {
                     Asteroid asteroid = new Asteroid(width, height);
                     if(!asteroid.collide(ship)) {
                         asteroids.add(asteroid);
